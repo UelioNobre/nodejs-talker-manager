@@ -6,11 +6,11 @@ const createToken = () => {
   const token = crypto
     .createHash('sha256')
     .update(tokenPayload)
-    .digest("hex");
+    .digest('hex');
 
   return token.substring(0, 16);
 };
 
 module.exports = {
   createToken,
-}
+};
