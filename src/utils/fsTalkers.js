@@ -9,10 +9,10 @@ const readTalkers = async () => {
     const json = JSON.parse(data);
     return json;
   } catch (error) {
-    console.log('ERROR ', error.message)
+    console.log('ERROR ', error.message);
   }
-}
+};
 
 module.exports = {
-  readTalkers
-}
+  readTalkers,
+};

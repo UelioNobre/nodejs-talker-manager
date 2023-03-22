@@ -1,7 +1,6 @@
 const { Router } = require('express');
-const { readTalkers } = require('../utils/fsTalkers');
 const { talkerExists } = require('../middlewares/talkers.middlware');
-const talkerController = require('../constrollers/talker.controller')
+const talkerController = require('../constrollers/talker.controller');
 
 const talkerRouter = Router();
 

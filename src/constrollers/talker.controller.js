@@ -10,9 +10,9 @@ const getTalkerById = async (req, res) => {
   const talkersData = await readTalkers();
   const talker = talkersData.find((talk) => talk.id === +id);
   return res.status(200).json(talker);
-}
+};
 
 module.exports = {
   getAll,
-  getTalkerById
-}
+  getTalkerById,
+};
