@@ -9,10 +9,24 @@ const readTalkers = async () => {
     const json = JSON.parse(data);
     return json;
   } catch (error) {
-    console.log('ERROR ', error.message);
+    console.log('ERROR :: readTalkers', error.message);
   }
 };
 
+const writeTalkers = async (talker) => {
+  try {
+    const talkers = await readTalkers();
+    const id = talkers.length;
+
+    talkers.push({...talker, id});
+    const data = JSON.stringify([...talkers, talker]);
+    await fs.writeFile(jsonFile, data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   readTalkers,
+  writeTalkers
 };
