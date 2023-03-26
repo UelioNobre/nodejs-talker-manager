@@ -1,4 +1,4 @@
-const validateEmail = require('../utils/validateEmail');
+const { validateEmail } = require('../utils/validations');
 
 const validateInputs = (req, res, next) => {
   const { body } = req;
