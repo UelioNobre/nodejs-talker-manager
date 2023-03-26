@@ -13,7 +13,6 @@ const getTalkerById = async (req, res) => {
 };
 
 const addTalker = async (req, res) => {
-
   // Controller
   const talker = req.body;
 
@@ -25,10 +24,10 @@ const addTalker = async (req, res) => {
 
   // Controller
   return res.status(201).json(newTalker);
-}
+};
 
 module.exports = {
   getAll,
   getTalkerById,
-  addTalker
+  addTalker,
 };
