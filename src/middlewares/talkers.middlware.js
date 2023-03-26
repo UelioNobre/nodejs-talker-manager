@@ -1,7 +1,6 @@
 const { readTalkers } = require('../utils/fsTalkers');
-const { validateDateFormat, validateRate } = require('../utils/validations');
-
-
+const requestErrors = require('../utils/requestErrors');
+const { isValidName, isValidAge, isTalkValid } = require('../utils/validations');
 
 const talkerExists = async (req, res, next) => {
   const talkersData = await readTalkers();
@@ -18,47 +17,19 @@ const talkerExists = async (req, res, next) => {
 const talkerCreateValidation = (req, res, next) => {
   const { name, age, talk } = req.body;
 
-  if (!name) return res.status(400).json({
-    message: 'O campo "name" é obrigatório'
-  });
-  
-  if (name.length < 3) return res.status(400).json({
-    message: 'O "name" deve ter pelo menos 3 caracteres'
-  });
-  
-  if (!age) return res.status(400).json({
-    message: 'O campo "age" é obrigatório'
-  });
-  
-  if (!Number.isInteger(age) || age < 18) return res.status(400).json({
-    message: 'O campo "age" deve ser um número inteiro igual ou maior que 18'
-  });
+  const validateName = isValidName(name);
+  if (validateName.type) return requestErrors(res, validateName.type);
 
-  if (!talk) return res.status(400).json({
-    message: 'O campo "talk" é obrigatório'
-  });
+  const validateAge = isValidAge(age);
+  if (validateAge.type) return requestErrors(res, validateAge.type);
 
-  if (!Object.keys(talk).includes('rate')) return res.status(400).json({
-    message: 'O campo "rate" é obrigatório'
-  });
-
-  if (!validateRate(talk.rate)) return res.status(400).json({
-    message: 'O campo "rate" deve ser um número inteiro entre 1 e 5'
-  });
-
-  if (!Object.keys(talk).includes('watchedAt')) return res.status(400).json({
-    message: 'O campo "watchedAt" é obrigatório'
-  });
-
-  if (!validateDateFormat(talk.watchedAt)) return res.status(400).json({
-    message: "O campo \"watchedAt\" deve ter o formato \"dd/mm/aaaa\""
-  });
-
+  const validateTalk = isTalkValid(talk);
+  if (validateTalk.type) return requestErrors(res, validateTalk.type);
 
   next();
 };
 
 module.exports = {
   talkerExists,
-  talkerCreateValidation
+  talkerCreateValidation,
 };
