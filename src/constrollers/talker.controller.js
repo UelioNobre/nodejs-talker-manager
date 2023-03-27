@@ -65,14 +65,12 @@ const searchByName = async (req, res) => {
   const { q } = req.query;
 
   // Service
-  let talkers = await readTalkers();
+  const talkersData = await readTalkers();
+  if (q) return res.status(200).json(findTalkerByName(q, talkersData));
 
-  if (q) {
-    talkers = findTalkerByName(q, talkers);
-  }
-  
-  // Controller
-  return res.status(200).json(talkers);    
+  return res.status(200).json(talkersData);
+
+  // return res.status(200).json([]);
 };
 
 module.exports = {

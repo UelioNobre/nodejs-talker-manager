@@ -1,6 +1,5 @@
-const findTalkerByName = (term, payload) => {
-  payload.filter(({ name }) => name.toLowerCase().includes(term.toLowerCase()));
-};
+const findTalkerByName = (term, payload) => payload
+    .filter(({ name }) => name.includes(term));
 
 module.exports = {
   findTalkerByName,
