@@ -59,6 +59,7 @@ const isTalkValid = (talk) => {
 
 module.exports = {
   validateEmail,
+  validateRate,
   isTalkValid,
   isValidAge,
   isValidName,
