@@ -46,9 +46,24 @@ const updateTalker = async (req, res) => {
   return res.status(200).json({ ...talker });
 };
 
+const deleteById = async (req, res) => {
+
+  // Controller
+  const { id } = req.params;
+  
+  // Service
+  const talkersData = await readTalkers();
+  const talkers = talkersData.filter((t) => t.id !== +id);
+  await updateTalkers(talkers);
+
+  // Controller
+  return res.status(204).end();
+}
+
 module.exports = {
   getAll,
   getTalkerById,
   addTalker,
   updateTalker,
+  deleteById
 };
