@@ -66,11 +66,10 @@ const searchByName = async (req, res) => {
 
   // Service
   const talkersData = await readTalkers();
+
   if (q) return res.status(200).json(findTalkerByName(q, talkersData));
 
   return res.status(200).json(talkersData);
-
-  // return res.status(200).json([]);
 };
 
 module.exports = {
