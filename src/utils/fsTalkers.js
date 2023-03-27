@@ -26,7 +26,17 @@ const writeTalkers = async (talker) => {
   }
 };
 
+const updateTalkers = async (talkers) => {
+  try {
+    const data = JSON.stringify(talkers);
+    await fs.writeFile(jsonFile, data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   readTalkers,
   writeTalkers,
+  updateTalkers,
 };
