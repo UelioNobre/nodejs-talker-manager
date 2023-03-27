@@ -1,4 +1,5 @@
 const { readTalkers, writeTalkers, updateTalkers } = require('../utils/fsTalkers');
+const { findTalkerByName } = require('../utils/talkersUtils');
 
 const getAll = async (_, res) => {
   const talkersData = await readTalkers();
@@ -50,7 +51,7 @@ const deleteById = async (req, res) => {
 
   // Controller
   const { id } = req.params;
-  
+
   // Service
   const talkersData = await readTalkers();
   const talkers = talkersData.filter((t) => t.id !== +id);
@@ -60,10 +61,26 @@ const deleteById = async (req, res) => {
   return res.status(204).end();
 }
 
+const searchByName = async (req, res) => {
+  // controller
+  const { q } = req.query;
+
+  // Service
+  let talkers = await readTalkers();
+
+  if (q) {
+    talkers = findTalkerByName(q, talkers);
+  }
+  
+  // Controller
+  return res.status(200).json(talkers);    
+}
+
 module.exports = {
   getAll,
   getTalkerById,
   addTalker,
   updateTalker,
-  deleteById
+  deleteById,
+  searchByName
 };
