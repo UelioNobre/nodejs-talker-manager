@@ -17,9 +17,8 @@ const writeTalkers = async (talker) => {
   try {
     const talkers = await readTalkers();
     const id = talkers.length;
+    const data = JSON.stringify([...talkers, { id, ...talker }], null, 2);
 
-    talkers.push({ ...talker, id });
-    const data = JSON.stringify([...talkers, talker]);
     await fs.writeFile(jsonFile, data);
   } catch (error) {
     console.log(error);
