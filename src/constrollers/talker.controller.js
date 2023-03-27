@@ -48,7 +48,6 @@ const updateTalker = async (req, res) => {
 };
 
 const deleteById = async (req, res) => {
-
   // Controller
   const { id } = req.params;
 
@@ -59,7 +58,7 @@ const deleteById = async (req, res) => {
 
   // Controller
   return res.status(204).end();
-}
+};
 
 const searchByName = async (req, res) => {
   // controller
@@ -74,7 +73,7 @@ const searchByName = async (req, res) => {
   
   // Controller
   return res.status(200).json(talkers);    
-}
+};
 
 module.exports = {
   getAll,
@@ -82,5 +81,5 @@ module.exports = {
   addTalker,
   updateTalker,
   deleteById,
-  searchByName
+  searchByName,
 };
