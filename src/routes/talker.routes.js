@@ -15,8 +15,10 @@ talkerRouter.get('/:id', talkerExists, talkerController.getTalkerById);
 talkerRouter.post('/', authMiddleware, talkerCreateValidation, talkerController.addTalker);
 
 talkerRouter.put('/:id',
-  authMiddleware,
+authMiddleware,
   talkerUpdateMiddleware,
   talkerController.updateTalker);
+  
+talkerRouter.delete('/:id', authMiddleware, talkerController.deleteById);
 
 module.exports = talkerRouter;
