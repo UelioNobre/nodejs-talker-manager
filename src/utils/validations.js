@@ -1,6 +1,7 @@
 const validateDateFormat = (date) => {
   if (date.length !== 10) return false;
   if (date.split('/').length !== 3) return false;
+
   return true;
 };
 
@@ -60,6 +61,7 @@ const isTalkValid = (talk) => {
 module.exports = {
   validateEmail,
   validateRate,
+  validateDateFormat,
   isTalkValid,
   isValidAge,
   isValidName,
