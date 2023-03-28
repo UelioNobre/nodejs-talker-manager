@@ -65,4 +65,5 @@ module.exports = {
   isTalkValid,
   isValidAge,
   isValidName,
+  isValidRate,
 };
