@@ -9,6 +9,7 @@ const errorMessages = {
   TALK_RATE_OUT_RANGE: 'O campo "rate" deve ser um número inteiro entre 1 e 5',
   TALK_WATCHEDAT_UNDEFINED: 'O campo "watchedAt" é obrigatório',
   TALK_WATCHEDAT_OUT_RANGE: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"',
+  DATE_OUT_RANGE: 'O parâmetro "date" deve ter o formato "dd/mm/aaaa"',
 };
 
 module.exports = {
