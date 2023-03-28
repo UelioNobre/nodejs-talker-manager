@@ -1,7 +1,7 @@
 const { readTalkers, writeTalkers, updateTalkers } = require('../utils/fsTalkers');
 const requestErrors = require('../utils/requestErrors');
-const { findTalkerByName, findTalkerByRate } = require('../utils/talkersUtils');
-const { validateRate } = require('../utils/validations');
+const { findTalkerByName, findTalkerByRate, findTalkerByDate } = require('../utils/talkersUtils');
+const { validateRate, validateDateFormat } = require('../utils/validations');
 
 const getAll = async (_, res) => {
   const talkersData = await readTalkers();
@@ -62,13 +62,20 @@ const deleteById = async (req, res) => {
   return res.status(204).end();
 };
 
-const searchByName = async (req, res) => {
-  // controller
-  const { q, rate } = req.query;
+const checkDate = (res, date, payload) => {
+  let data = payload;
+  if (date) {
+    if (!validateDateFormat(date)) return requestErrors(res, 'DATE_OUT_RANGE');
+    data = findTalkerByDate(date, payload);
+  }
 
-  // Service
-  const talkersData = await readTalkers();
-  let aux = talkersData;
+  return res.status(200).json(data);
+};
+
+const searchByName = async (req, res) => {
+  const { q, rate, date } = req.query;
+
+  let aux = await readTalkers();
 
   if (q) aux = findTalkerByName(q, aux);
 
@@ -77,7 +84,7 @@ const searchByName = async (req, res) => {
     aux = findTalkerByRate(+rate, aux);
   }
 
-  return res.status(200).json(aux);
+  return checkDate(res, date, aux);
 };
 
 module.exports = {
