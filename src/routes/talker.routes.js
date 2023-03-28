@@ -15,6 +15,7 @@ talkerRouter.get('/search', authMiddleware, talkerController.searchByName);
 talkerRouter.get('/:id', talkerExists, talkerController.getTalkerById);
 talkerRouter.get('/', talkerController.getAll);
 
+talkerRouter.patch('/rate/:id', authMiddleware, talkerController.changeRate);
 talkerRouter.post('/', authMiddleware, talkerCreateValidation, talkerController.addTalker);
 talkerRouter.put('/:id',
   authMiddleware,
