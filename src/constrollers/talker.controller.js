@@ -1,7 +1,7 @@
 const { readTalkers, writeTalkers, updateTalkers } = require('../utils/fsTalkers');
 const requestErrors = require('../utils/requestErrors');
 const { findTalkerByName, findTalkerByRate, findTalkerByDate } = require('../utils/talkersUtils');
-const { validateRate, validateDateFormat } = require('../utils/validations');
+const { validateRate, validateDateFormat, isValidRate } = require('../utils/validations');
 
 const getAll = async (_, res) => {
   const talkersData = await readTalkers();
@@ -87,6 +87,27 @@ const searchByName = async (req, res) => {
   return checkDate(res, date, aux);
 };
 
+const changeRate = async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  
+  const isRate = isValidRate(body);
+  if (isRate.type) return requestErrors(res, isRate.type);
+
+  const talkersData = await readTalkers();
+  const { rate } = body;
+  const update = talkersData.map((talker) => {
+    const { id: ID, talk } = talker;
+    if (ID === +id) {
+      talk.rate = +rate;
+    }
+    return talker;
+  });
+
+  await updateTalkers(update);
+  res.status(204).end();
+};
+
 module.exports = {
   getAll,
   getTalkerById,
@@ -94,4 +115,5 @@ module.exports = {
   updateTalker,
   deleteById,
   searchByName,
+  changeRate,
 };
